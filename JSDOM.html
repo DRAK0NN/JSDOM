@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Таблица чисел</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 300px;
+            text-align: center;
+        }
+        td {
+            border: 1px solid black;
+            padding: 10px;
+        }
+        .highlight {
+            background-color: orange;
+        }
+    </style>
+</head>
+<body>
+    <table id="numberTable"></table>
+    <br>
+    <button onclick="addNumber()">Добавить число</button>
+    <script>
+        function generateRandomNumber() {
+            return Math.floor(Math.random() * 100);
+        }
+
+        function createTable() {
+            let table = document.getElementById("numberTable");
+            let numbers = [];
+            for (let i = 0; i < 30; i++) {
+                numbers.push(generateRandomNumber());
+            }
+            
+            let index = 0;
+            for (let i = 0; i < 5; i++) {
+                let row = table.insertRow();
+                for (let j = 0; j < 6; j++) {
+                    let cell = row.insertCell();
+                    cell.textContent = numbers[index];
+                    if (numbers[index] >= 50) {
+                        cell.classList.add("highlight");
+                    }
+                    index++;
+                }
+            }
+        }
+
+        function addNumber() {
+            let table = document.getElementById("numberTable");
+            let rows = table.rows;
+            let newNumber = generateRandomNumber();
+            
+            if (rows.length === 0 || rows[rows.length - 1].cells.length >= 6) {
+                let newRow = table.insertRow();
+                let cell = newRow.insertCell();
+                cell.textContent = newNumber;
+                if (newNumber >= 50) {
+                    cell.classList.add("highlight");
+                }
+            } else {
+                let lastRow = rows[rows.length - 1];
+                let cell = lastRow.insertCell();
+                cell.textContent = newNumber;
+                if (newNumber >= 50) {
+                    cell.classList.add("highlight");
+                }
+            }
+        }
+
+        createTable();
+    </script>
+</body>
+</html>
